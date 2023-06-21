@@ -37,12 +37,21 @@ const GameBoard = () => {
     const [dealerHand, setDealerHand] = useState([]);
     const [playerHand, setPlayerHand] = useState([]);
     const [bet, setBet] = useState(0);
+    const [playerStanding, setPlayerStanding] = useState(false);
 
     useEffect(() => {
         const newDeck = createDeck();
         setDeck(newDeck);
     }, []);
 
+    useEffect(() => {
+        if (playerStanding && calculateHandValue(dealerHand) < 17) {
+            dealerHit();
+        }
+    }, [playerStanding, dealerHand]);
+
+
+    // Create a new deck of cards
     const createDeck = () => {
         let deck = [];
 
@@ -58,6 +67,7 @@ const GameBoard = () => {
         return deck;
     }
 
+    // Deal initial cards
     const dealInitialCards = () => {
         let newDeck = [...deck];
 
@@ -69,6 +79,7 @@ const GameBoard = () => {
         setPlayerHand(newPlayerHand);
     }
 
+    // Player actions
     const playerHit = () => {
         let newDeck = [...deck];
         let newPlayerHand = [...playerHand];
@@ -80,7 +91,17 @@ const GameBoard = () => {
     }
 
     const playerStand = () => {
-        dealerTurn();
+        setPlayerStanding(true);
+    }
+
+    const dealerHit = () => {
+        let newDeck = [...deck];
+        let newDealerHand = [...dealerHand];
+
+        newDealerHand.push(newDeck.pop());
+
+        setDeck(newDeck);
+        setDealerHand(newDealerHand);
     }
 
     const playerDoubleDown = () => {
@@ -129,21 +150,21 @@ const GameBoard = () => {
     }
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-                height: '75vh',
-                maxWidth: '100vw',
-                bgcolor: 'green',
-                p: 4,
+        <Box 
+            sx={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'space-between', 
+                width: '100%', 
+                height: '75vh', 
+                maxWidth: '100vw', 
+                bgcolor: 'green', 
+                p: 4, 
             }}
         >
-            <Dealer cards={dealerHand} />
-            <Player cards={playerHand} />
+            <Dealer cards={dealerHand} handValue={calculateHandValue(dealerHand)} />
+            <Player cards={playerHand} handValue={calculateHandValue(playerHand)} />
             <Box>
                 <Typography variant="h6">
                     Bet: ${bet}
