@@ -1,10 +1,11 @@
 import React from 'react';
+import { Box } from '@mui/material';
 
-const Card = ({ suit, value }) => {
+const Card = ({ card }) => {
     return (
-        <div className="card">
-            <p>{value} of {suit}</p>
-        </div>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', m: 1 }}>
+            <img src={`/images/fullDeck/${card}.png`} alt={card} className="card-img" />
+        </Box>
     );
 }
 

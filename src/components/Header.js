@@ -1,12 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-
+import { AppBar, Toolbar, Typography } from '@mui/material';
 
 const Header = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Typography variant="h6">
+                <Typography variant="h6" component="div">
                     Blackjack Game
                 </Typography>
             </Toolbar>

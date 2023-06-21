@@ -1,20 +1,39 @@
 import React from 'react';
 import Card from './Card';
+import { Box, Typography } from '@mui/material';
 
-const Player = () => {
+const Player = ({ cards }) => {
     return (
-        <div className="player">
-            <h2>Player</h2>
-            <div className="player-hand">
-                <Card suit="clubs" value="A" />  {/* Example placeholder card */}
-            </div>
-            <div className="controls">
-                <button>Hit</button>
-                <button>Stand</button>
-                <button>Double Down</button>
-                {/* Add other controls as needed */}
-            </div>
-        </div>
+        <Box 
+            sx={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                width: '100%', 
+                m: 2, 
+                p: 4,  
+                borderRadius: 1 
+            }}
+        >
+            <Typography variant="h4" component="div">
+                Player's Hand
+            </Typography>
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'row', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    flexWrap: 'wrap',
+                    m: 2
+                }}
+            >
+                {cards.map((card, index) => (
+                    <Card key={index} card={card} />
+                ))}
+            </Box>
+        </Box>
     );
 }
 

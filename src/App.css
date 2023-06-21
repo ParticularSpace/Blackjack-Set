@@ -4,3 +4,8 @@
   box-sizing: border-box;
 }
 
+.card-img {
+    max-width: 100px; /* Set this to the width you want */
+    height: auto; /* This will maintain the aspect ratio */
+}
+
